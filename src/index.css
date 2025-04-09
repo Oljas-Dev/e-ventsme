@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Homemade+Apple&family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --color-user: #e8a850;
+  --color-user-stroke: #fee3be;
+  --color-user-inactive: #c4a882;
+  --color-main: #83b29c;
+  --color-board: #accab2;
+  --color-board-stroke: #e0f9e5;
+  --color-footer: #78624d;
+  --color-events: #d8461c;
+  --color-events-stroke: #ffc2b2;
+
+  --shadow: 4px 6px 0.4rem rgba(0, 0, 0, 0.25);
+  --active-shadow: 1px 1px 0.4rem rgba(0, 0, 0, 0.25);
+  --inner-shadow: inset 4px 6px 0.4rem rgba(0, 0, 0, 0.25);
+
+  --spring-easing: linear(
+    0,
+    0.009,
+    0.035 2.1%,
+    0.141 4.4%,
+    0.723 12.9%,
+    0.938 16.7%,
+    1.017,
+    1.077,
+    1.121,
+    1.149 24.3%,
+    1.159,
+    1.163,
+    1.161,
+    1.154 29.9%,
+    1.129 32.8%,
+    1.051 39.6%,
+    1.017 43.1%,
+    0.991,
+    0.977 51%,
+    0.974 53.8%,
+    0.975 57.1%,
+    0.997 69.8%,
+    1.003 76.9%,
+    1
+  );
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 62.5%;
+  line-height: 1.5;
+}
+
+body {
+  font-family: "MuseoModerno", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+
+  font-size: 2rem;
+  color: var(--color-footer);
+  background-color: var(--color-main);
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+/* ----- Login ----- */
+
+/* .left__arr:hover::after {
+  display: block;
+  animation: fadeIn 1s var(--spring-easing);
+}
+
+.left__arr::after {
+  content: "try it";
+  padding: 0.7rem 0 0 3rem;
+  display: none;
+  position: absolute;
+  top: -4rem;
+  left: -0.5rem;
+  width: 8rem;
+  height: 5rem;
+  background: url(../public/bubble.png) no-repeat 0 0;
+  background-size: 8rem 5rem;
+  transform-origin: left bottom;
+} */
+
+.bubble {
+  position: absolute;
+  top: -4rem;
+  left: -1rem;
+  width: 8.5rem !important;
+  height: 5rem !important;
+  /* box-shadow: var(--shadow); */
+}
+
+/* ----- Fonts ----- */
+
+.homemade-apple {
+  font-family: "Homemade Apple", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ----- Helpers ----- */
+
+.flip {
+  transform: rotateY(180deg);
+}
+.flip:hover {
+  transform: scale(1.2);
+  transform: rotateY(180deg);
+}
+
+/* ----- Animations ----- */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
