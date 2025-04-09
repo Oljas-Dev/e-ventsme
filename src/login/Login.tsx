@@ -1,6 +1,8 @@
 import styled, { keyframes } from "styled-components";
 import LoginHeader from "./LoginHeader";
 import useStates from "../context/useStates";
+import { FormEvent, useRef } from "react";
+import { login } from "../services/apiAuth";
 
 interface LoginFormProps {
   $translateX?: string;
@@ -26,7 +28,7 @@ const LoginForm = styled.form<LoginFormProps>`
   animation: ${appear} 1.5s var(--spring-easing);
 `;
 
-const LoginWrapper = styled.article`
+const LoginWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -100,18 +102,47 @@ const Button = styled.button`
 export default function Login() {
   const { move, step } = useStates();
 
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    console.log("submit");
+
+    const email = emailRef.current?.value;
+    const password = passwordRef.current?.value;
+
+    if (!email || !password) {
+      console.error("Email and password are required");
+      return;
+    }
+
+    login({ email, password });
+  }
+
   return (
-    <LoginForm $translateX={`translateX(${move * step}rem)`}>
+    <LoginForm
+      onSubmit={handleSubmit}
+      $translateX={`translateX(${move * step}rem)`}
+    >
       <LoginWrapper>
         <LoginHeader />
         <LoginInputs>
           <label htmlFor="email">sign in</label>
-          <Input type="email" id="email" placeholder="your email" required />
+          <Input
+            type="email"
+            id="email"
+            placeholder="your email"
+            required
+            ref={emailRef}
+          />
           <Input
             type="password"
             id="password"
             placeholder="your password"
             required
+            ref={passwordRef}
           />
           <Button type="submit">sign in</Button>
         </LoginInputs>
