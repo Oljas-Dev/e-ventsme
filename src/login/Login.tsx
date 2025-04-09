@@ -93,6 +93,7 @@ const Button = styled.button`
   }
   &:active {
     box-shadow: var(--active-shadow);
+    transform: scale(0.99);
   }
 `;
 
