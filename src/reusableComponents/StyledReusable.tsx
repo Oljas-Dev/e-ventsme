@@ -21,4 +21,30 @@ const ArrowLeft = styled.span<ArrowLeftProps>`
   }
 `;
 
-export { ArrowLeft };
+const Input = styled.input`
+  font-size: 1.6rem;
+  background-color: var(--color-main) !important;
+  color: var(--color-footer);
+  font-family: "MuseoModerno", sans-serif;
+  border-bottom: 2px solid var(--color-user-stroke);
+  border-right: 1px solid var(--color-user-stroke);
+  border-top: none;
+  border-left: none;
+  border-radius: 1.5rem;
+  outline: none;
+  padding: 1.5rem;
+
+  box-shadow: var(--inner-shadow);
+
+  &::placeholder {
+    font-family: inherit;
+    color: inherit;
+  }
+
+  &:focus {
+    border: 1px solid var(--color-user-stroke);
+    box-shadow: none;
+  }
+`;
+
+export { ArrowLeft, Input };

@@ -4,6 +4,9 @@ import styled, { keyframes } from "styled-components";
 import LoginHeader from "./LoginHeader";
 import useStates from "../context/useStates";
 import { useLogin } from "../services/useLogin";
+import { Input } from "../reusableComponents/StyledReusable";
+import { MainBtn } from "../ui/Button";
+import Wrapper from "../ui/Wrapper";
 
 interface LoginFormProps {
   $translateX?: string;
@@ -29,18 +32,6 @@ const LoginForm = styled.form<LoginFormProps>`
   animation: ${appear} 1.5s var(--spring-easing);
 `;
 
-const LoginWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  background-color: var(--color-user);
-  padding: 4rem;
-  border-radius: 3rem;
-  border-top: 2px solid var(--color-user-stroke);
-  border-left: 1px solid var(--color-user-stroke);
-  box-shadow: var(--shadow);
-`;
-
 const LoginInputs = styled.div`
   text-align: center;
   display: flex;
@@ -49,54 +40,6 @@ const LoginInputs = styled.div`
 
   label {
     margin-bottom: -1.7rem;
-  }
-`;
-
-const Input = styled.input`
-  font-size: 1.6rem;
-  background-color: var(--color-main) !important;
-  color: var(--color-footer);
-  font-family: "MuseoModerno", sans-serif;
-  border-bottom: 2px solid var(--color-user-stroke);
-  border-right: 1px solid var(--color-user-stroke);
-  border-top: none;
-  border-left: none;
-  border-radius: 1.5rem;
-  outline: none;
-  padding: 1.5rem;
-
-  box-shadow: var(--inner-shadow);
-
-  &::placeholder {
-    font-family: inherit;
-    color: inherit;
-  }
-
-  &:focus {
-    border: 1px solid var(--color-user-stroke);
-    box-shadow: none;
-  }
-`;
-
-const Button = styled.button`
-  background-color: var(--color-user);
-  color: var(--color-footer);
-  border-top: 2px solid var(--color-user-stroke);
-  border-left: 1px solid var(--color-user-stroke);
-  border-right: none;
-  border-bottom: none;
-  border-radius: 1.5rem;
-  padding: 1.5rem;
-  box-shadow: var(--shadow);
-  transition: transform 1s var(--spring-easing),
-    box-shadow 1s var(--spring-easing);
-
-  &:hover {
-    transform: scale(1.01);
-  }
-  &:active {
-    box-shadow: var(--active-shadow);
-    transform: scale(0.99);
   }
 `;
 
@@ -128,7 +71,7 @@ export default function Login() {
       onSubmit={handleSubmit}
       $translateX={`translateX(${move * step}rem)`}
     >
-      <LoginWrapper>
+      <Wrapper>
         <LoginHeader />
         <LoginInputs>
           <label htmlFor="email">sign in</label>
@@ -148,9 +91,9 @@ export default function Login() {
             ref={passwordRef}
             disabled={isPending}
           />
-          <Button type="submit">sign in</Button>
+          <MainBtn type="submit">sign in</MainBtn>
         </LoginInputs>
-      </LoginWrapper>
+      </Wrapper>
     </LoginForm>
   );
 }
