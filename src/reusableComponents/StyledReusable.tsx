@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import arrow from "../../public/back.png";
+import expand from "../../public/expand.png";
 
 interface ArrowLeftProps {
   $rotate?: string;
@@ -19,6 +20,14 @@ const ArrowLeft = styled.span<ArrowLeftProps>`
   &:hover {
     transform: scale(1.2) ${(props) => props.$rotate || ""};
   }
+`;
+
+const Expand = styled.span`
+  background: url(${expand}) no-repeat 0 0;
+  background-size: 3.6rem 1.6rem;
+  width: 3.6rem;
+  height: 1.6rem;
+  cursor: pointer;
 `;
 
 const Input = styled.input`
@@ -47,4 +56,16 @@ const Input = styled.input`
   }
 `;
 
-export { ArrowLeft, Input };
+const FlexCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const FlexBtw = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export { ArrowLeft, Input, FlexCol, FlexBtw, Expand };
