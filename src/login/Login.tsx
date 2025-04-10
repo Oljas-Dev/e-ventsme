@@ -1,8 +1,9 @@
+import { FormEvent, useRef } from "react";
 import styled, { keyframes } from "styled-components";
+
 import LoginHeader from "./LoginHeader";
 import useStates from "../context/useStates";
-import { FormEvent, useRef } from "react";
-import { login } from "../services/apiAuth";
+import { useLogin } from "../services/useLogin";
 
 interface LoginFormProps {
   $translateX?: string;
@@ -101,6 +102,7 @@ const Button = styled.button`
 
 export default function Login() {
   const { move, step } = useStates();
+  const { login, isPending } = useLogin();
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -136,6 +138,7 @@ export default function Login() {
             placeholder="your email"
             required
             ref={emailRef}
+            disabled={isPending}
           />
           <Input
             type="password"
@@ -143,6 +146,7 @@ export default function Login() {
             placeholder="your password"
             required
             ref={passwordRef}
+            disabled={isPending}
           />
           <Button type="submit">sign in</Button>
         </LoginInputs>
