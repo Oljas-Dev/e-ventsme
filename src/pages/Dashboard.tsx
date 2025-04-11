@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { FlexBtw, FlexCol } from "../reusableComponents/StyledReusable";
 import Wrapper from "../ui/Wrapper";
-import Avatar from "../../public/user_6.png";
+import Avatar from "../../public/userAvatar.png";
 import expandIcon from "../../public/expand.png";
 import features from "../../public/features.png";
 import UseImages from "../ui/UseImages";
