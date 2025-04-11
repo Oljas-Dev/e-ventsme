@@ -1,6 +1,11 @@
 import styled from "styled-components";
-import { Expand, FlexBtw } from "../reusableComponents/StyledReusable";
+
+import { FlexBtw, FlexCol } from "../reusableComponents/StyledReusable";
 import Wrapper from "../ui/Wrapper";
+import Avatar from "../../public/user_6.png";
+import expandIcon from "../../public/expand.png";
+import features from "../../public/features.png";
+import UseImages from "../ui/UseImages";
 
 const StyledDashBoard = styled.section`
   display: grid;
@@ -11,24 +16,42 @@ const StyledDashBoard = styled.section`
   max-width: 144rem;
 `;
 
-const Image = styled.div`
-  background: gray;
-  width: 8rem;
-  height: 8rem;
-  border-radius: 50%;
-  flex-shrink: 0;
-
-  border: 2px solid var(--color-footer);
+const IconsContainer = styled(FlexCol)`
+  gap: 1rem;
 `;
 
 export default function Dashboard() {
+  const userAvatar = {
+    image: Avatar,
+    widthHeight: { width: "8rem", height: "8rem" },
+    padding: "0",
+    borderRadius: "50%",
+    border: "2px solid var(--color-footer)",
+    flexShrink: "0",
+  };
+
+  const styledExpandIcon = {
+    image: expandIcon,
+    widthHeight: { width: "3.6rem", height: "1.6rem" },
+    flexShrink: "0",
+  };
+
+  const styledFeatures = {
+    image: features,
+    widthHeight: { width: "4rem", height: "3.5rem" },
+    flexShrink: "0",
+  };
+
   return (
     <StyledDashBoard>
       <Wrapper $gap="1rem" $padding="2rem">
         <FlexBtw>
-          <Image />
+          <UseImages styles={userAvatar} />
           <p>Welcome back Kevin</p>
-          <Expand />
+          <IconsContainer>
+            <UseImages styles={styledExpandIcon} />
+            <UseImages styles={styledFeatures} />
+          </IconsContainer>
         </FlexBtw>
         <input type="text" placeholder="what's on your mind" />
       </Wrapper>

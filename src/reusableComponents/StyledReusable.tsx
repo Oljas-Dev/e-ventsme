@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import arrow from "../../public/back.png";
-import expand from "../../public/expand.png";
 
 interface ArrowLeftProps {
+  $image?: string;
+  $widthHeight?: string[];
+  $padding?: string;
   $rotate?: string;
 }
 
@@ -22,10 +24,10 @@ const ArrowLeft = styled.span<ArrowLeftProps>`
   }
 `;
 
-const Expand = styled.span`
-  background: url(${expand}) no-repeat 0 0;
-  background-size: 3.6rem 1.6rem;
-  width: 3.6rem;
+const MultiImage = styled.span<ArrowLeftProps>`
+  background: url(${(props) => props.$image}) no-repeat 0 0;
+  background-size: ${(props) => props.$widthHeight};
+  width: ${(props) => props.$widthHeight || "3.6rem 1.6rem"};
   height: 1.6rem;
   cursor: pointer;
 `;
@@ -68,4 +70,4 @@ const FlexBtw = styled.div`
   align-items: center;
 `;
 
-export { ArrowLeft, Input, FlexCol, FlexBtw, Expand };
+export { ArrowLeft, Input, FlexCol, FlexBtw, MultiImage };
