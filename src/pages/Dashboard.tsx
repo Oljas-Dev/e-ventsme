@@ -20,6 +20,21 @@ const IconsContainer = styled(FlexCol)`
   gap: 1rem;
 `;
 
+const StyledInput = styled.input`
+  font-family: inherit;
+  font-size: 1.6rem;
+  text-align: center;
+  background-color: transparent;
+  color: var(--color-footer);
+  width: 100%;
+  border-radius: 1rem;
+  border: none;
+
+  &::placeholder {
+    color: inherit;
+  }
+`;
+
 export default function Dashboard() {
   const userAvatar = {
     image: Avatar,
@@ -53,7 +68,7 @@ export default function Dashboard() {
             <UseImages styles={styledFeatures} />
           </IconsContainer>
         </FlexBtw>
-        <input type="text" placeholder="what's on your mind" />
+        <StyledInput type="text" placeholder="what's on your mind..." />
       </Wrapper>
     </StyledDashBoard>
   );
