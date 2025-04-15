@@ -24,14 +24,6 @@ const ArrowLeft = styled.span<ArrowLeftProps>`
   }
 `;
 
-const MultiImage = styled.span<ArrowLeftProps>`
-  background: url(${(props) => props.$image}) no-repeat 0 0;
-  background-size: ${(props) => props.$widthHeight};
-  width: ${(props) => props.$widthHeight || "3.6rem 1.6rem"};
-  height: 1.6rem;
-  cursor: pointer;
-`;
-
 const Input = styled.input`
   font-size: 1.6rem;
   background-color: var(--color-main) !important;
@@ -70,4 +62,4 @@ const FlexBtw = styled.div`
   align-items: center;
 `;
 
-export { ArrowLeft, Input, FlexCol, FlexBtw, MultiImage };
+export { ArrowLeft, Input, FlexCol, FlexBtw };

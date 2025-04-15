@@ -1,5 +1,5 @@
 import { FormEvent, useRef } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 import LoginHeader from "./LoginHeader";
 import useStates from "../context/useStates";
@@ -7,21 +7,11 @@ import { useLogin } from "../services/useLogin";
 import { Input } from "../reusableComponents/StyledReusable";
 import { MainBtn } from "../ui/Button";
 import Wrapper from "../ui/Wrapper";
+import { appear } from "../keyframes/keyframes";
 
 interface LoginFormProps {
   $translateX?: string;
 }
-
-const appear = keyframes`
-    0% {
-        transform: translateX(10rem);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-`;
 
 const LoginForm = styled.form<LoginFormProps>`
   display: flex;
