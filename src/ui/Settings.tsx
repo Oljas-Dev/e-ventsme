@@ -8,9 +8,11 @@ import styled from "styled-components";
 import { ChangeEvent, useRef, useState } from "react";
 import { Button } from "./Button";
 import { btnAppear } from "../keyframes/keyframes";
+import Stripes from "./Stripes";
 
 const IconsContainer = styled(FlexCol)`
   gap: 1rem;
+  align-self: flex-start;
 `;
 
 const StyledInput = styled.input`
@@ -58,22 +60,30 @@ const styledExpandIcon = {
 
 const styledFeatures = {
   image: features,
-  widthHeight: { width: "4rem", height: "3.5rem" },
+  widthHeight: { width: "3.5rem", height: "3rem" },
   flexShrink: "0",
 };
 
+const StripesStyling = [
+  { width: "86%", bg: "var(--color-main)", top: "6.4rem", left: "4rem" },
+  { width: "86%", bg: "var(--color-footer)", top: "7.2rem", left: "4rem" },
+];
+
 export default function Settings() {
   const [status, setStatus] = useState("");
+  const [showStatus, setShowStatus] = useState(false);
   const [showButton, setShowButton] = useState("");
 
+  const userName = "Oljas"; // Replace with actual user name
+
   const statusInput = useRef<HTMLInputElement>(null);
-  const showStatus = status.length > 0;
   const inputValue = statusInput.current?.value;
 
   function handleStatusChange(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setStatus(inputValue || "");
+    setShowStatus(true);
     setShowButton("");
   }
 
@@ -81,14 +91,18 @@ export default function Settings() {
     <Wrapper $padding="2rem" $gap="1rem">
       <FlexBtw>
         <UseImages styles={userAvatar} />
-        <p>Welcome back Kevin</p>
+        <Stripes arr={StripesStyling} />
+
+        <p>Welcome back {userName}</p>
         <IconsContainer>
           <UseImages styles={styledExpandIcon} />
           <UseImages styles={styledFeatures} />
         </IconsContainer>
       </FlexBtw>
       {showStatus ? (
-        <StyledStatus>{status}</StyledStatus>
+        <StyledStatus onClick={() => setShowStatus(false)}>
+          {status}
+        </StyledStatus>
       ) : (
         <StyledForm onSubmit={handleStatusChange}>
           <StyledInput

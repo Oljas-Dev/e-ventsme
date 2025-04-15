@@ -39,6 +39,8 @@ const ImageContainer = styled.span<ImageContainerProps>`
   border: ${(props) => props.$border || ""};
   border-radius: ${(props) => props.$borderRadius || ""};
   flex-shrink: ${(props) => props.$flexShrink || ""};
+  positon: relative;
+  z-index: 10;
 
   &:hover {
     transform: ${(props) => props.$transforms};
