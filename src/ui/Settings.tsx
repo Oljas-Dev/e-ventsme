@@ -1,11 +1,12 @@
-import { FlexBtw, FlexCol } from "../reusableComponents/StyledReusable";
+import styled from "styled-components";
+import { ChangeEvent, useRef, useState } from "react";
+
+import { FlexBtw, FlexCol, Grid } from "../reusableComponents/StyledReusable";
 import UseImages from "./UseImages";
 import Wrapper from "./Wrapper";
 import Avatar from "../../public/userAvatar.png";
 import expandIcon from "../../public/expand.png";
 import features from "../../public/features.png";
-import styled from "styled-components";
-import { ChangeEvent, useRef, useState } from "react";
 import { Button } from "./Button";
 import { btnAppear } from "../keyframes/keyframes";
 import Stripes from "./Stripes";
@@ -42,6 +43,18 @@ const StyledForm = styled.form`
   gap: 1rem;
 `;
 
+const EditBtn = styled.button`
+  display: block;
+  background-color: var(--color-footer);
+  justify-self: center;
+
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+`;
+
 // Images objects to pass the styles to the UseImages component
 const userAvatar = {
   image: Avatar,
@@ -50,18 +63,25 @@ const userAvatar = {
   borderRadius: "50%",
   border: "2px solid var(--color-footer)",
   flexShrink: "0",
+  content: "avatar",
+  afterPadding: "2.5rem",
+  afterLeft: "1rem",
 };
 
 const styledExpandIcon = {
   image: expandIcon,
   widthHeight: { width: "3.6rem", height: "1.6rem" },
   flexShrink: "0",
+  content: "minimize",
+  afterPadding: "1.6rem",
 };
 
 const styledFeatures = {
   image: features,
   widthHeight: { width: "3.5rem", height: "3rem" },
   flexShrink: "0",
+  content: "edit",
+  afterPadding: "3.4rem",
 };
 
 const StripesStyling = [
@@ -70,7 +90,7 @@ const StripesStyling = [
 ];
 
 export default function Settings() {
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("what's on your mind...");
   const [showStatus, setShowStatus] = useState(false);
   const [showButton, setShowButton] = useState("");
 
@@ -79,12 +99,17 @@ export default function Settings() {
   const statusInput = useRef<HTMLInputElement>(null);
   const inputValue = statusInput.current?.value;
 
-  function handleStatusChange(e: ChangeEvent<HTMLFormElement>) {
+  function handleStatus(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setStatus(inputValue || "");
     setShowStatus(true);
     setShowButton("");
+  }
+
+  function handleChange() {
+    statusInput.current?.focus();
+    setShowStatus(false);
   }
 
   return (
@@ -100,14 +125,15 @@ export default function Settings() {
         </IconsContainer>
       </FlexBtw>
       {showStatus ? (
-        <StyledStatus onClick={() => setShowStatus(false)}>
-          {status}
-        </StyledStatus>
+        <Grid $gap="2rem">
+          <StyledStatus>{status}</StyledStatus>
+          <EditBtn onClick={handleChange} />
+        </Grid>
       ) : (
-        <StyledForm onSubmit={handleStatusChange}>
+        <StyledForm onSubmit={handleStatus}>
           <StyledInput
             type="text"
-            placeholder="what's on your mind..."
+            placeholder={status || "..."}
             ref={statusInput}
             onChange={(e) => setShowButton(e.target.value)}
           />

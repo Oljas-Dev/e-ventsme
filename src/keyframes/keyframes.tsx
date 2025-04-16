@@ -22,4 +22,14 @@ const btnAppear = keyframes`
     }
 `;
 
-export { appear, btnAppear };
+const fadeIn = keyframes`
+0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+export { appear, btnAppear, fadeIn };

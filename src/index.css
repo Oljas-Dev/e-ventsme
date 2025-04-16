@@ -75,34 +75,6 @@ h2 {
 
 /* ----- Login ----- */
 
-/* .left__arr:hover::after {
-  display: block;
-  animation: fadeIn 1s var(--spring-easing);
-}
-
-.left__arr::after {
-  content: "try it";
-  padding: 0.7rem 0 0 3rem;
-  display: none;
-  position: absolute;
-  top: -4rem;
-  left: -0.5rem;
-  width: 8rem;
-  height: 5rem;
-  background: url(../public/bubble.png) no-repeat 0 0;
-  background-size: 8rem 5rem;
-  transform-origin: left bottom;
-} */
-
-.bubble {
-  position: absolute;
-  top: -4rem;
-  left: -1rem;
-  width: 8.5rem !important;
-  height: 5rem !important;
-  /* box-shadow: var(--shadow); */
-}
-
 /* ----- Fonts ----- */
 
 .homemade-apple {

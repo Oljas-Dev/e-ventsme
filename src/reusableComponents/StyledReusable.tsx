@@ -8,6 +8,10 @@ interface ArrowLeftProps {
   $rotate?: string;
 }
 
+interface GridProps {
+  $gap?: string;
+}
+
 const ArrowLeft = styled.span<ArrowLeftProps>`
   font-size: 1.2rem;
   position: relative;
@@ -50,6 +54,12 @@ const Input = styled.input`
   }
 `;
 
+const Grid = styled.div<GridProps>`
+  display: grid;
+  grid-template-columns: 90% 10%;
+  align-items: center;
+`;
+
 const FlexCol = styled.div`
   display: flex;
   flex-direction: column;
@@ -64,4 +74,4 @@ const FlexBtw = styled.div`
   position: relative;
 `;
 
-export { ArrowLeft, Input, FlexCol, FlexBtw };
+export { ArrowLeft, Input, FlexCol, FlexBtw, Grid };
