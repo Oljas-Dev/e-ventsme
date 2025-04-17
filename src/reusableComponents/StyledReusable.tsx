@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import arrow from "../../public/back.png";
+import { Link } from "react-router";
 
 interface ArrowLeftProps {
   $image?: string;
@@ -74,4 +75,10 @@ const FlexBtw = styled.div`
   position: relative;
 `;
 
-export { ArrowLeft, Input, FlexCol, FlexBtw, Grid };
+const StyledLink = styled(Link)`
+  font-size: 1.6rem;
+  text-decoration: none;
+  color: inherit;
+`;
+
+export { ArrowLeft, Input, FlexCol, FlexBtw, Grid, StyledLink };

@@ -27,9 +27,9 @@ const Wrapper = styled.div<WrapperProps>`
   padding: ${(props) => props.$padding || "4rem"};
   border-radius: 3rem;
   border-top: 2px solid
-    var(${(props) => props.$borderColor || "--color-user-stroke"});
+    ${(props) => props.$borderColor || "var(--color-user-stroke)"};
   border-left: 1px solid
-    var(${(props) => props.$borderColor || "--color-user-stroke"});
+    ${(props) => props.$borderColor || "var(--color-user-stroke)"};
   box-shadow: var(--shadow);
   position: relative;
 `;

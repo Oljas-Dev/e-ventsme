@@ -1,59 +1,63 @@
 import styled from "styled-components";
-import { ChangeEvent, useRef, useState } from "react";
+// import { ChangeEvent, useRef, useState } from "react";
 
-import { FlexBtw, FlexCol, Grid } from "../reusableComponents/StyledReusable";
+import { FlexBtw, FlexCol } from "../reusableComponents/StyledReusable";
 import UseImages from "./UseImages";
 import Wrapper from "./Wrapper";
 import Avatar from "../../public/userAvatar.png";
 import expandIcon from "../../public/expand.png";
 import features from "../../public/features.png";
-import { Button } from "./Button";
-import { btnAppear } from "../keyframes/keyframes";
+// import { Button } from "./Button";
+// import { btnAppear } from "../keyframes/keyframes";
 import Stripes from "./Stripes";
 
 const IconsContainer = styled(FlexCol)`
-  gap: 1rem;
+  gap: 2rem;
   align-self: flex-start;
 `;
 
-const StyledInput = styled.input`
-  font-family: inherit;
-  font-size: 1.6rem;
-  text-align: center;
-  background-color: transparent;
-  color: var(--color-footer);
-
-  padding: 0.5rem;
-  width: 100%;
-  border-radius: 1rem;
-  border: none;
-
-  &::placeholder {
-    color: inherit;
-  }
+const StyledSettings = styled(FlexBtw)`
+  min-height: 10rem;
 `;
 
-const StyledStatus = styled.p`
-  text-align: center;
-  animation: ${btnAppear} 1s var(--spring-easing);
-`;
+// const StyledInput = styled.input`
+//   font-family: inherit;
+//   font-size: 1.6rem;
+//   text-align: center;
+//   background-color: transparent;
+//   color: var(--color-footer);
 
-const StyledForm = styled.form`
-  display: flex;
-  gap: 1rem;
-`;
+//   padding: 0.5rem;
+//   width: 100%;
+//   border-radius: 1rem;
+//   border: none;
 
-const EditBtn = styled.button`
-  display: block;
-  background-color: var(--color-footer);
-  justify-self: center;
+//   &::placeholder {
+//     color: inherit;
+//   }
+// `;
 
-  width: 1.5rem;
-  height: 1.5rem;
-  border: none;
-  border-radius: 0.3rem;
-  cursor: pointer;
-`;
+// const StyledStatus = styled.p`
+//   text-align: center;
+//   animation: ${btnAppear} 1s var(--spring-easing);
+// `;
+
+// const StyledForm = styled.form`
+//   display: flex;
+//   gap: 1rem;
+// `;
+
+// const EditBtn = styled.button`
+//   display: block;
+//   background-color: var(--color-footer);
+//   justify-self: center;
+
+//   width: 1.5rem;
+//   height: 1.5rem;
+//   border: none;
+//   border-radius: 0.3rem;
+//   cursor: pointer;
+// `;
 
 // Images objects to pass the styles to the UseImages component
 const userAvatar = {
@@ -85,36 +89,36 @@ const styledFeatures = {
 };
 
 const StripesStyling = [
-  { width: "86%", bg: "var(--color-main)", top: "6.4rem", left: "4rem" },
-  { width: "86%", bg: "var(--color-footer)", top: "7.2rem", left: "4rem" },
+  { width: "86%", bg: "var(--color-main)", top: "7.4rem", left: "4rem" },
+  { width: "86%", bg: "var(--color-footer)", top: "8.2rem", left: "4rem" },
 ];
 
 export default function Settings() {
-  const [status, setStatus] = useState("what's on your mind...");
-  const [showStatus, setShowStatus] = useState(false);
-  const [showButton, setShowButton] = useState("");
+  // const [status, setStatus] = useState("what's on your mind...");
+  // const [showStatus, setShowStatus] = useState(false);
+  // const [showButton, setShowButton] = useState("");
 
   const userName = "Oljas"; // Replace with actual user name
 
-  const statusInput = useRef<HTMLInputElement>(null);
-  const inputValue = statusInput.current?.value;
+  // const statusInput = useRef<HTMLInputElement>(null);
+  // const inputValue = statusInput.current?.value;
 
-  function handleStatus(e: ChangeEvent<HTMLFormElement>) {
-    e.preventDefault();
+  // function handleStatus(e: ChangeEvent<HTMLFormElement>) {
+  //   e.preventDefault();
 
-    setStatus(inputValue || "");
-    setShowStatus(true);
-    setShowButton("");
-  }
+  //   setStatus(inputValue || "");
+  //   setShowStatus(true);
+  //   setShowButton("");
+  // }
 
-  function handleChange() {
-    statusInput.current?.focus();
-    setShowStatus(false);
-  }
+  // function handleChange() {
+  //   statusInput.current?.focus();
+  //   setShowStatus(false);
+  // }
 
   return (
-    <Wrapper $padding="2rem" $gap="1rem">
-      <FlexBtw>
+    <Wrapper $padding="3rem 2rem" $gap="1rem">
+      <StyledSettings>
         <UseImages styles={userAvatar} />
         <Stripes arr={StripesStyling} />
 
@@ -123,8 +127,8 @@ export default function Settings() {
           <UseImages styles={styledExpandIcon} />
           <UseImages styles={styledFeatures} />
         </IconsContainer>
-      </FlexBtw>
-      {showStatus ? (
+      </StyledSettings>
+      {/* {showStatus ? (
         <Grid $gap="2rem">
           <StyledStatus>{status}</StyledStatus>
           <EditBtn onClick={handleChange} />
@@ -143,7 +147,7 @@ export default function Settings() {
             </Button>
           )}
         </StyledForm>
-      )}
+      )} */}
     </Wrapper>
   );
 }

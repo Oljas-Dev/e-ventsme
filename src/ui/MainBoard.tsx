@@ -6,7 +6,7 @@ export default function MainBoard() {
       $columnStart="2"
       $rowStart="1 / span 2"
       $backgroundColor="var(--color-board)"
-      $borderColor="--color-board-stroke"
+      $borderColor="var(--color-board-stroke)"
       $padding="1rem 2rem"
     >
       <h3>Let's the e-venting begin</h3>

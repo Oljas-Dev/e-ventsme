@@ -15,6 +15,7 @@ interface ImageProps {
     rotate?: string;
     transforms?: string;
     hover?: string;
+    antiHover?: string;
     content?: string;
     afterPadding?: string;
     afterLeft?: string;
@@ -33,6 +34,7 @@ interface ImageContainerProps {
   $flexShrink?: string;
   $transforms?: string;
   $hover?: string;
+  $antiHover?: string;
   $content?: string;
   $afterPadding?: string;
   $afterLeft?: string;
@@ -47,20 +49,24 @@ const ImageContainer = styled.span<ImageContainerProps>`
   width: ${(props) => props.$width};
   height: ${(props) => props.$height};
   cursor: pointer;
+
   transform: ${(props) => props.$transforms || ""};
   transition: all 1s var(--spring-easing);
   border: ${(props) => props.$border || ""};
   border-radius: ${(props) => props.$borderRadius || ""};
   flex-shrink: ${(props) => props.$flexShrink || ""};
+  // overflow: hidden;
   position: relative;
   z-index: 10;
 
   &:hover {
     transform: ${(props) => props.$transforms};
+    ${(props) => props.$hover};
   }
 
   &:hover::after {
     display: ${(props) => props.$showBubble || "block"};
+    ${(props) => props.$antiHover};
     animation: ${fadeIn} 1s var(--spring-easing);
   }
 
@@ -95,6 +101,7 @@ export default function UseImages({ styles, children }: ImageProps) {
     afterPadding,
     afterLeft,
     showBubble,
+    antiHover,
   } = styles;
 
   return (
@@ -108,6 +115,7 @@ export default function UseImages({ styles, children }: ImageProps) {
       $flexShrink={flexShrink}
       $transforms={transforms}
       $hover={hover}
+      $antiHover={antiHover}
       $content={content}
       $afterPadding={afterPadding}
       $afterLeft={afterLeft}
