@@ -1,13 +1,11 @@
 import styled from "styled-components";
-import Wrapper from "./Wrapper";
 import { Link } from "react-router";
-import UseImages from "./UseImages";
 
-const StyledH3 = styled.h3`
-  font-size: 2rem;
-  font-weight: 400;
-  text-align: center;
-`;
+import Wrapper from "./Wrapper";
+import UseImages from "./UseImages";
+import addEvent from "../../public/add.png";
+
+// import UseImages from "./UseImages";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -15,13 +13,23 @@ const StyledLink = styled(Link)`
   position: absolute;
   bottom: 1rem;
   right: 1.8rem;
+
+  &:hover {
+  }
 `;
 
-const emptyImage = {
-  widthHeight: { width: "2rem", height: "1rem" },
-  content: "edit",
-  afterPadding: "3.4rem",
+const styledAddEvent = {
+  image: addEvent,
+  widthHeight: { width: "4.2rem", height: "4.6rem" },
+  flexShrink: "0",
+  showBubble: "none",
 };
+
+// const emptyImage = {
+//   widthHeight: { width: "2rem", height: "1rem" },
+//   content: "edit",
+//   afterPadding: "3.4rem",
+// };
 
 export default function EventsList() {
   return (
@@ -32,11 +40,15 @@ export default function EventsList() {
       $height="20rem"
       $color="var(--color-user)"
       $gap="0.5rem"
+      $borderColor="--color-events-stroke"
     >
-      <StyledH3>Your e-vents so far</StyledH3>
-      <p>There are no e-vents🤷‍♂️</p>
+      <h3>Your e-vents so far</h3>
+      <UseImages styles={styledAddEvent}>
+        <Link to="#">+ new e-vent</Link>
+      </UseImages>
+
       <StyledLink to="#">
-        <UseImages styles={emptyImage} />
+        {/* <UseImages styles={emptyImage} /> */}
         join e-vent
       </StyledLink>
     </Wrapper>

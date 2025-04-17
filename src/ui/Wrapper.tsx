@@ -6,12 +6,15 @@ interface WrapperProps {
   $padding?: string;
   $backgroundColor?: string;
   $rowStart?: string;
+  $columnStart?: string;
   $height?: string;
   $color?: string;
+  $borderColor?: string;
 }
 
 const Wrapper = styled.div<WrapperProps>`
   grid-row: ${(props) => props.$rowStart};
+  grid-column: ${(props) => props.$columnStart};
   color: ${(props) => props.$color || "inherit"};
 
   display: flex;
@@ -23,8 +26,10 @@ const Wrapper = styled.div<WrapperProps>`
   height: ${(props) => props.$height};
   padding: ${(props) => props.$padding || "4rem"};
   border-radius: 3rem;
-  border-top: 2px solid var(--color-user-stroke);
-  border-left: 1px solid var(--color-user-stroke);
+  border-top: 2px solid
+    var(${(props) => props.$borderColor || "--color-user-stroke"});
+  border-left: 1px solid
+    var(${(props) => props.$borderColor || "--color-user-stroke"});
   box-shadow: var(--shadow);
   position: relative;
 `;

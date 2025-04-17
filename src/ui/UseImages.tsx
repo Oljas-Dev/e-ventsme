@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import bubble from "../../public/bubble.png";
 import { fadeIn } from "../keyframes/keyframes";
+import { ReactElement } from "react";
 
 interface ImageProps {
   styles: {
@@ -17,7 +18,9 @@ interface ImageProps {
     content?: string;
     afterPadding?: string;
     afterLeft?: string;
+    showBubble?: string;
   };
+  children?: string | ReactElement;
 }
 
 interface ImageContainerProps {
@@ -33,6 +36,7 @@ interface ImageContainerProps {
   $content?: string;
   $afterPadding?: string;
   $afterLeft?: string;
+  $showBubble?: string;
 }
 
 const ImageContainer = styled.span<ImageContainerProps>`
@@ -56,7 +60,7 @@ const ImageContainer = styled.span<ImageContainerProps>`
   }
 
   &:hover::after {
-    display: block;
+    display: ${(props) => props.$showBubble || "block"};
     animation: ${fadeIn} 1s var(--spring-easing);
   }
 
@@ -77,7 +81,7 @@ const ImageContainer = styled.span<ImageContainerProps>`
   }
 `;
 
-export default function UseImages({ styles }: ImageProps) {
+export default function UseImages({ styles, children }: ImageProps) {
   const {
     image,
     widthHeight,
@@ -90,6 +94,7 @@ export default function UseImages({ styles }: ImageProps) {
     content,
     afterPadding,
     afterLeft,
+    showBubble,
   } = styles;
 
   return (
@@ -106,6 +111,9 @@ export default function UseImages({ styles }: ImageProps) {
       $content={content}
       $afterPadding={afterPadding}
       $afterLeft={afterLeft}
-    />
+      $showBubble={showBubble}
+    >
+      {children}
+    </ImageContainer>
   );
 }

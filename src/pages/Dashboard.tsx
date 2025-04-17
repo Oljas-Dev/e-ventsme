@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import Settings from "../ui/Settings";
 import EventsList from "../ui/EventsList";
+import MainBoard from "../ui/MainBoard";
 
 const StyledDashBoard = styled.section`
   display: grid;
@@ -18,6 +19,7 @@ export default function Dashboard() {
     <StyledDashBoard>
       <Settings />
       <EventsList />
+      <MainBoard />
     </StyledDashBoard>
   );
 }
