@@ -8,6 +8,7 @@ import { Input } from "../reusableComponents/StyledReusable";
 import { MainBtn } from "../ui/Button";
 import Wrapper from "../ui/Wrapper";
 import { appear } from "../keyframes/keyframes";
+import toast from "react-hot-toast";
 
 interface LoginFormProps {
   $translateX?: string;
@@ -43,13 +44,11 @@ export default function Login() {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    console.log("submit");
-
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
     if (!email || !password) {
-      console.error("Email and password are required");
+      toast.error("Email and password are required");
       return;
     }
 
