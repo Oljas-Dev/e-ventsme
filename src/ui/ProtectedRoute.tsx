@@ -23,7 +23,7 @@ export default function ProtectedRoute({ children }: reactChildren) {
   useEffect(
     function () {
       if (!isAuthenticated && !isLoading) {
-        navigate("/");
+        navigate("/login");
       }
     },
     [isAuthenticated, isLoading, navigate]

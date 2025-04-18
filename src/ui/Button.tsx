@@ -25,6 +25,7 @@ const Button = styled.button<ButtonProps>`
   padding: ${(props) => props.$padding || "1.5rem"};
   box-shadow: ${(props) => props.$shadow || "var(--shadow)"};
   transition: all 1s var(--spring-easing);
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.01);

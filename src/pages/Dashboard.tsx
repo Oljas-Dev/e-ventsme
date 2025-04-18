@@ -8,7 +8,6 @@ import Footer from "../ui/Footer";
 const StyledDashBoard = styled.section`
   display: grid;
   grid-template-columns: 30% 70%;
-  // grid-template-rows: 40% 50% 10%;
   gap: 2rem;
 
   margin: 4rem;

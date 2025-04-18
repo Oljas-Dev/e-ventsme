@@ -1,9 +1,9 @@
 import { AuthForm } from "./AuthForm";
 
-export default function Login() {
+export default function SignUp() {
   return (
     <AuthForm>
-      <AuthForm.Login />
+      <AuthForm.SignUp />
     </AuthForm>
   );
 }

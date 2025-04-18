@@ -1,6 +1,20 @@
 import styled from "styled-components";
 import arrow from "../../public/back.png";
 import { Link } from "react-router";
+import { appear } from "../keyframes/keyframes";
+
+interface AuthWrapperProps {
+  $translateX?: string;
+}
+
+const AuthWrapper = styled.div<AuthWrapperProps>`
+  display: flex;
+  place-content: center;
+  margin-top: 4rem;
+  transform: ${(props) => props.$translateX};
+  transition: transform 1s var(--spring-easing);
+  animation: ${appear} 1.5s var(--spring-easing);
+`;
 
 interface ArrowLeftProps {
   $image?: string;
@@ -11,6 +25,10 @@ interface ArrowLeftProps {
 
 interface GridProps {
   $gap?: string;
+}
+
+interface LinkProps {
+  $color?: string;
 }
 
 const ArrowLeft = styled.span<ArrowLeftProps>`
@@ -26,6 +44,19 @@ const ArrowLeft = styled.span<ArrowLeftProps>`
 
   &:hover {
     transform: scale(1.2) ${(props) => props.$rotate || ""};
+  }
+`;
+
+const StyledLogin = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  margin-top: 2rem;
+
+  label {
+    margin-bottom: -1.7rem;
   }
 `;
 
@@ -75,10 +106,19 @@ const FlexBtw = styled.div`
   position: relative;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(Link)<LinkProps>`
   font-size: 1.6rem;
   text-decoration: none;
-  color: inherit;
+  color: ${(props) => props.$color || "inherit"};
 `;
 
-export { ArrowLeft, Input, FlexCol, FlexBtw, Grid, StyledLink };
+export {
+  AuthWrapper,
+  StyledLogin,
+  ArrowLeft,
+  Input,
+  FlexCol,
+  FlexBtw,
+  Grid,
+  StyledLink,
+};
