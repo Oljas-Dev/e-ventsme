@@ -1,3 +1,4 @@
+import Logout from "../authetication/Logout";
 import Wrapper from "./Wrapper";
 
 export default function MainBoard() {
@@ -7,10 +8,11 @@ export default function MainBoard() {
       $rowStart="1 / span 2"
       $backgroundColor="var(--color-board)"
       $borderColor="var(--color-board-stroke)"
-      $padding="1rem 2rem"
+      $padding="1.5rem 2rem"
     >
       <h3>Let's the e-venting begin</h3>
       <p>There are no e-vents🤷‍♂️</p>
+      <Logout />
     </Wrapper>
   );
 }

@@ -3,8 +3,10 @@ import { btnAppear } from "../keyframes/keyframes";
 
 interface ButtonProps {
   $backgroundColor?: string;
+  $borderColor?: string;
   $color?: string;
   $padding?: string;
+  $shadow?: string;
 }
 
 const Button = styled.button<ButtonProps>`
@@ -13,13 +15,15 @@ const Button = styled.button<ButtonProps>`
   color: ${(props) => props.$color || "var(--color-footer)"};
   animation: ${btnAppear} 1s var(--spring-easing);
 
-  border-top: 2px solid var(--color-user-stroke);
-  border-left: 1px solid var(--color-user-stroke);
+  border-top: 2px solid
+    ${(props) => props.$borderColor || "var(--color-user-stroke)"};
+  border-left: 1px solid
+    ${(props) => props.$borderColor || "var(--color-user-stroke)"};
   border-right: none;
   border-bottom: none;
   border-radius: 1.5rem;
   padding: ${(props) => props.$padding || "1.5rem"};
-  box-shadow: var(--shadow);
+  box-shadow: ${(props) => props.$shadow || "var(--shadow)"};
   transition: all 1s var(--spring-easing);
 
   &:hover {

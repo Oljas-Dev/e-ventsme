@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import LoginHeader from "./LoginHeader";
 import useStates from "../context/useStates";
-import { useLogin } from "../services/useLogin";
+import { useLogin } from "./useLogin";
 import { Input } from "../reusableComponents/StyledReusable";
 import { MainBtn } from "../ui/Button";
 import Wrapper from "../ui/Wrapper";
