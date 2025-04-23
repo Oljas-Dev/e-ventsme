@@ -1,12 +1,19 @@
 import styled from "styled-components";
 import { StyledLink } from "../reusableComponents/StyledReusable";
+import {
+  FieldError,
+  FieldErrorsImpl,
+  FieldValues,
+  Merge,
+} from "react-hook-form";
 
 interface ParagraphProps {
-  link: string;
-  text: string;
+  link?: string;
+  text?: string;
+  err?: string | FieldError | Merge<FieldError, FieldErrorsImpl<FieldValues>>;
 }
 
-const StyledParagraph = styled.p`
+const StyledTextLink = styled.p`
   text-align: center;
   margin-bottom: -2.5rem;
 
@@ -15,13 +22,23 @@ const StyledParagraph = styled.p`
   }
 `;
 
-export default function AuthParagraph({ link, text }: ParagraphProps) {
-  return (
-    <StyledParagraph>
+const StyledParagraph = styled.p`
+  text-align: center;
+`;
+
+export default function AuthParagraph({
+  link = "#",
+  text,
+  err,
+}: ParagraphProps) {
+  return !err ? (
+    <StyledTextLink>
       or{" "}
       <StyledLink to={link} $color="var(--color-events)">
         {text}
       </StyledLink>
-    </StyledParagraph>
+    </StyledTextLink>
+  ) : (
+    <StyledParagraph>{err}</StyledParagraph>
   );
 }

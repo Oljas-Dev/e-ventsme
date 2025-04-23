@@ -2,6 +2,7 @@ import { createContext, FormEvent, RefObject, useContext, useRef } from "react";
 import styled from "styled-components";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import { reactChildren } from "../reusableComponents/types";
 import LoginHeader from "./LoginHeader";
@@ -18,10 +19,11 @@ import { MainBtn } from "../ui/Button";
 import googleImg from "../../public/devicon_google.png";
 import UseImages from "../ui/UseImages";
 import AuthParagraph from "../ui/AuthParagraph";
+import useSignUp from "./useSignUp";
 
 interface AuthFormProps {
   handleLogin: (e: FormEvent<HTMLFormElement>) => void;
-  handleSignup: (e: FormEvent<HTMLFormElement>) => void;
+  // handleSignup: SubmitHandler<FieldValues>;
   emailRef: RefObject<HTMLInputElement | null>;
   passwordRef: RefObject<HTMLInputElement | null>;
 }
@@ -64,14 +66,8 @@ export function AuthForm({ children }: reactChildren) {
     login({ email, password });
   }
 
-  function handleSignup(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-  }
-
   return (
-    <AuthFormContext.Provider
-      value={{ handleLogin, handleSignup, emailRef, passwordRef }}
-    >
+    <AuthFormContext.Provider value={{ handleLogin, emailRef, passwordRef }}>
       <AuthWrapper $translateX={`translateX(${move * step}rem)`}>
         <Wrapper>{children}</Wrapper>
       </AuthWrapper>
@@ -104,16 +100,64 @@ function LoginForm() {
 }
 
 function SignupForm() {
-  const { handleSignup } = useContext(AuthFormContext);
+  const { register, formState, getValues, handleSubmit, reset } = useForm();
+  const { signup, isPending } = useSignUp();
+
+  const { errors } = formState;
+
+  function handleSignup({ email, password }: FieldValues) {
+    signup({ email, password }, { onSettled: () => reset() });
+  }
+
+  // Email regex: /\S+@\S+\.\S+/
 
   return (
-    <StyledForm onSubmit={handleSignup}>
+    <StyledForm onSubmit={handleSubmit(handleSignup)}>
       <LoginHeader />
       <StyledLogin>
         <label htmlFor="signupEmail">sign up</label>
-        <Input type="email" id="signupEmail" placeholder="your email" />
-        <Input type="password" placeholder="your password" />
-        <Input type="password" placeholder="confirm your password" />
+        <Input
+          type="email"
+          id="signupEmail"
+          placeholder="your email"
+          {...register("email", {
+            required: "This field is required",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "Please provide a valid email address",
+            },
+          })}
+        />
+        {errors?.email?.message && (
+          <AuthParagraph err={errors?.email?.message} />
+        )}
+        <Input
+          type="password"
+          id="password"
+          placeholder="your password"
+          {...register("password", {
+            required: "This field is required",
+            minLength: {
+              value: 8,
+              message: "Password needs a minimum of 8 characters",
+            },
+          })}
+        />
+        {errors?.password?.message && (
+          <AuthParagraph err={errors?.password?.message} />
+        )}
+        <Input
+          type="password"
+          placeholder="confirm your password"
+          {...register("passwordConfirm", {
+            required: "This field is required",
+            validate: (value) =>
+              value === getValues().password || "Passwords need to match",
+          })}
+        />
+        {errors?.passwordConfirm?.message && (
+          <AuthParagraph err={errors?.passwordConfirm?.message} />
+        )}
         <MainBtn type="submit">sign up</MainBtn>
         <AuthParagraph link="/login" text="sign in" />
       </StyledLogin>

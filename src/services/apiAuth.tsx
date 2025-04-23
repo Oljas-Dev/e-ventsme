@@ -1,6 +1,28 @@
 import toast from "react-hot-toast";
 import supabase from "./supabase";
 
+export async function signup({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        avatar: "",
+      },
+    },
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data?.user;
+}
+
 export async function login({
   email,
   password,
