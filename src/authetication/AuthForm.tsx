@@ -2,7 +2,7 @@ import { createContext, FormEvent, RefObject, useContext, useRef } from "react";
 import styled from "styled-components";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 
 import { reactChildren } from "../reusableComponents/types";
 import LoginHeader from "./LoginHeader";

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 
-import { useUser } from "../features/useUser";
+import { useUser } from "../authetication/useUser";
 import { reactChildren } from "../reusableComponents/types";
 
 const FullPage = styled.div`
