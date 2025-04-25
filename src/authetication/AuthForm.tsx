@@ -10,6 +10,7 @@ import LoginInputs from "./LoginInputs";
 import { useLogin } from "./useLogin";
 import {
   AuthWrapper,
+  FlexCol,
   Input,
   StyledLogin,
 } from "../reusableComponents/StyledReusable";
@@ -83,16 +84,18 @@ function LoginForm() {
   return (
     <>
       <StyledForm onSubmit={handleLogin}>
-        <LoginHeader />
+        <LoginHeader heading="Start e-venting your life" />
         <LoginInputs
           isPending={isPending}
           emailRef={emailRef}
           passwordRef={passwordRef}
         />
       </StyledForm>
-      <AuthParagraph link="/signup" text="sign up" />
-      <MainBtn onClick={() => navigate("/signup")}>sign up</MainBtn>
-      <StyledGoogleBtn>
+      <AuthParagraph link="/signup" linkText="sign up" />
+      <MainBtn onClick={() => navigate("/signup")} disabled={isPending}>
+        sign up
+      </MainBtn>
+      <StyledGoogleBtn disabled={isPending}>
         with <UseImages styles={googleImage} /> Google account
       </StyledGoogleBtn>
     </>
@@ -113,7 +116,7 @@ function SignupForm() {
 
   return (
     <StyledForm onSubmit={handleSubmit(handleSignup)}>
-      <LoginHeader />
+      <LoginHeader heading="Start e-venting your life" />
       <StyledLogin>
         <label htmlFor="signupEmail">sign up</label>
         <Input
@@ -127,9 +130,10 @@ function SignupForm() {
               message: "Please provide a valid email address",
             },
           })}
+          disabled={isPending}
         />
         {errors?.email?.message && (
-          <AuthParagraph err={errors?.email?.message} />
+          <AuthParagraph text={errors?.email?.message} />
         )}
         <Input
           type="password"
@@ -142,9 +146,10 @@ function SignupForm() {
               message: "Password needs a minimum of 8 characters",
             },
           })}
+          disabled={isPending}
         />
         {errors?.password?.message && (
-          <AuthParagraph err={errors?.password?.message} />
+          <AuthParagraph text={errors?.password?.message} />
         )}
         <Input
           type="password"
@@ -154,16 +159,39 @@ function SignupForm() {
             validate: (value) =>
               value === getValues().password || "Passwords need to match",
           })}
+          disabled={isPending}
         />
         {errors?.passwordConfirm?.message && (
-          <AuthParagraph err={errors?.passwordConfirm?.message} />
+          <AuthParagraph text={errors?.passwordConfirm?.message} />
         )}
-        <MainBtn type="submit">sign up</MainBtn>
-        <AuthParagraph link="/login" text="sign in" />
+        <MainBtn type="submit" disabled={isPending}>
+          sign up
+        </MainBtn>
+        <AuthParagraph link="/login" linkText="sign in" />
       </StyledLogin>
     </StyledForm>
   );
 }
 
+const StyledAuthFinish = styled(FlexCol)`
+  gap: 14rem;
+  max-width: 40rem;
+  text-align: center;
+`;
+
+function AuthFinish() {
+  return (
+    <StyledAuthFinish>
+      <LoginHeader heading="Only one last step👍" />
+      <AuthParagraph
+        text="We’ve sent a confirmation email, please check it out
+and follow further instructions."
+      />
+      <h2>You're the best!</h2>
+    </StyledAuthFinish>
+  );
+}
+
 AuthForm.Login = LoginForm;
 AuthForm.SignUp = SignupForm;
+AuthForm.AuthFinish = AuthFinish;

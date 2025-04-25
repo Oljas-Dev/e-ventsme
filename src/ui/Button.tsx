@@ -34,6 +34,11 @@ const Button = styled.button<ButtonProps>`
     box-shadow: var(--active-shadow);
     transform: scale(0.99);
   }
+
+  &:disabled {
+    background-color: var(--color-user-inactive);
+    box-shadow: none;
+  }
 `;
 
 const MainBtn = styled(Button)`

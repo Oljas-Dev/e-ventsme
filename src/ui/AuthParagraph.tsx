@@ -9,8 +9,8 @@ import {
 
 interface ParagraphProps {
   link?: string;
-  text?: string;
-  err?: string | FieldError | Merge<FieldError, FieldErrorsImpl<FieldValues>>;
+  linkText?: string;
+  text?: string | FieldError | Merge<FieldError, FieldErrorsImpl<FieldValues>>;
 }
 
 const StyledTextLink = styled.p`
@@ -28,17 +28,17 @@ const StyledParagraph = styled.p`
 
 export default function AuthParagraph({
   link = "#",
+  linkText,
   text,
-  err,
 }: ParagraphProps) {
-  return !err ? (
+  return !text ? (
     <StyledTextLink>
       or{" "}
       <StyledLink to={link} $color="var(--color-events)">
-        {text}
+        {linkText}
       </StyledLink>
     </StyledTextLink>
   ) : (
-    <StyledParagraph>{err}</StyledParagraph>
+    <StyledParagraph>{text}</StyledParagraph>
   );
 }

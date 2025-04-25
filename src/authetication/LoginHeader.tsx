@@ -3,13 +3,17 @@ import { ArrowLeft } from "../reusableComponents/StyledReusable";
 import useStates from "../context/useStates";
 import { useEffect } from "react";
 
+interface LoginHeaderProps {
+  heading: string;
+}
+
 const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   gap: 5rem;
 `;
 
-export default function LoginHeader() {
+export default function LoginHeader({ heading }: LoginHeaderProps) {
   const { move, setMove, step } = useStates();
 
   const width = window.innerWidth;
@@ -29,7 +33,7 @@ export default function LoginHeader() {
   return (
     <StyledHeader>
       <ArrowLeft onClick={moveBack} />
-      <h2>Start e-venting your life</h2>
+      <h2>{heading}</h2>
       <ArrowLeft $rotate="rotate(180deg)" onClick={moveForward} />
     </StyledHeader>
   );

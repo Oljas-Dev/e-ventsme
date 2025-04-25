@@ -33,7 +33,9 @@ export default function LoginInputs({
         required
         disabled={isPending}
       />
-      <MainBtn type="submit">sign in</MainBtn>
+      <MainBtn type="submit" disabled={isPending}>
+        sign in
+      </MainBtn>
     </StyledLogin>
   );
 }

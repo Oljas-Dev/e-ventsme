@@ -84,6 +84,10 @@ const Input = styled.input`
     border: 1px solid var(--color-user-stroke);
     box-shadow: none;
   }
+
+  &:disabled {
+    background-color: var(--color-inactive) !important;
+  }
 `;
 
 const Grid = styled.div<GridProps>`

@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Applayout from "./ui/Applayout";
 import SignUp from "./authetication/SignUp";
+import AuthSuccess from "./authetication/AuthSuccess";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
+            <Route path="authsuccess" element={<AuthSuccess />} />
 
             <Route
               element={
