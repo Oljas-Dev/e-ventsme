@@ -16,11 +16,15 @@ import {
 } from "../reusableComponents/StyledReusable";
 import useStates from "../context/useStates";
 import Wrapper from "../ui/Wrapper";
-import { MainBtn } from "../ui/Button";
+import { Button, MainBtn } from "../ui/Button";
 import googleImg from "../../public/devicon_google.png";
 import UseImages from "../ui/UseImages";
 import AuthParagraph from "../ui/AuthParagraph";
 import useSignUp from "./useSignUp";
+import { useUpdateUser } from "./useUpdateUser";
+import FileInput from "../ui/FileInput";
+import activeImage from "../../public/active_arr.png";
+import inactiveImage from "../../public/inactive_arr.png";
 
 interface AuthFormProps {
   handleLogin: (e: FormEvent<HTMLFormElement>) => void;
@@ -46,6 +50,7 @@ const googleImage = {
 
 const AuthFormContext = createContext<AuthFormProps>({} as AuthFormProps);
 
+// Forms context component
 export function AuthForm({ children }: reactChildren) {
   const { move, step } = useStates();
   const { login } = useLogin();
@@ -69,13 +74,14 @@ export function AuthForm({ children }: reactChildren) {
 
   return (
     <AuthFormContext.Provider value={{ handleLogin, emailRef, passwordRef }}>
-      <AuthWrapper $translateX={`translateX(${move * step}rem)`}>
+      <AuthWrapper $translateX={`translateX(${move * step}%)`}>
         <Wrapper>{children}</Wrapper>
       </AuthWrapper>
     </AuthFormContext.Provider>
   );
 }
 
+// Form to sign in existing users
 function LoginForm() {
   const { handleLogin, emailRef, passwordRef } = useContext(AuthFormContext);
   const { isPending } = useLogin();
@@ -102,14 +108,23 @@ function LoginForm() {
   );
 }
 
+// Form to sign up new users
 function SignupForm() {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { signup, isPending } = useSignUp();
+  const { setMove } = useStates();
 
   const { errors } = formState;
 
   function handleSignup({ email, password }: FieldValues) {
-    signup({ email, password }, { onSettled: () => reset() });
+    signup(
+      { email, password },
+      {
+        onSettled: () => {
+          reset();
+        },
+      }
+    );
   }
 
   // Email regex: /\S+@\S+\.\S+/
@@ -173,12 +188,14 @@ function SignupForm() {
   );
 }
 
+// AuthFinish component styles
 const StyledAuthFinish = styled(FlexCol)`
   gap: 14rem;
   max-width: 40rem;
   text-align: center;
 `;
 
+// Component to congratulate with successfull authorisation
 function AuthFinish() {
   return (
     <StyledAuthFinish>
@@ -192,6 +209,85 @@ and follow further instructions."
   );
 }
 
+// UserDetails component's styles
+const StyledDetails = styled(FlexCol)`
+  gap: 10rem;
+
+  text-align: center;
+  min-width: 40rem;
+`;
+
+// Objects with styles for btn image
+const activeImg = {
+  image: activeImage,
+  widthHeight: { width: "4rem", height: "2rem" },
+  showBubble: "none",
+};
+const inactiveImg = {
+  image: inactiveImage,
+  widthHeight: { width: "4rem", height: "2rem" },
+  showBubble: "none",
+};
+
+// Component to collect further details about new user
+function UserDetails() {
+  const { register, formState, getFieldState, handleSubmit } = useForm();
+  const { updateUser, isUpdating } = useUpdateUser();
+  const { setMove } = useStates();
+
+  const { errors } = formState;
+  const { isDirty } = getFieldState("fullName", formState);
+  const navigate = useNavigate();
+
+  function handleFullName({ fullName }: FieldValues) {
+    if (!fullName) return;
+    updateUser(
+      { fullName },
+      {
+        onSuccess: () => {
+          setMove(0);
+          navigate("/dashboard");
+        },
+      }
+    );
+  }
+
+  return (
+    <StyledForm onSubmit={handleSubmit(handleFullName)}>
+      <StyledDetails>
+        <div>
+          <h2>Almost there...</h2>
+          <StyledLogin>
+            <label>Your full name</label>
+            <Input
+              type="text"
+              placeholder="full name"
+              {...register("fullName", { required: "This field is required" })}
+              disabled={isUpdating}
+            />
+            {errors?.fullName?.message && (
+              <AuthParagraph text={errors?.fullName?.message} />
+            )}
+            <label htmlFor="avatarFile">Upload avatar</label>
+            <FileInput id="avatarFile" />
+          </StyledLogin>
+        </div>
+
+        <Button
+          $padding="0"
+          $backgroundColor="transparent"
+          $borderColor="transparent"
+          $shadow="none"
+          $align="flex-end"
+        >
+          <UseImages styles={isDirty ? activeImg : inactiveImg} />
+        </Button>
+      </StyledDetails>
+    </StyledForm>
+  );
+}
+
 AuthForm.Login = LoginForm;
 AuthForm.SignUp = SignupForm;
 AuthForm.AuthFinish = AuthFinish;
+AuthForm.UserDetails = UserDetails;

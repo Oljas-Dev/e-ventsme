@@ -3,8 +3,8 @@ import supabase from "./supabase";
 
 interface updateUserProps {
   avatar?: string;
-  fullName?: string;
   gender?: string;
+  fullName?: string;
   birthDate?: string;
   address?: string;
 }

@@ -7,6 +7,7 @@ interface ButtonProps {
   $color?: string;
   $padding?: string;
   $shadow?: string;
+  $align?: string;
 }
 
 const Button = styled.button<ButtonProps>`
@@ -25,6 +26,7 @@ const Button = styled.button<ButtonProps>`
   padding: ${(props) => props.$padding || "1.5rem"};
   box-shadow: ${(props) => props.$shadow || "var(--shadow)"};
   transition: all 1s var(--spring-easing);
+  align-self: ${(props) => props.$align};
   cursor: pointer;
 
   &:hover {

@@ -24,7 +24,7 @@ export default function Logout() {
     <StyledLogout>
       <Button
         disabled={isPending}
-        onClick={logout}
+        onClick={() => logout()}
         $padding="0"
         $backgroundColor="transparent"
         $borderColor="transparent"

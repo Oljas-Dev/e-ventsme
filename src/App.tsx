@@ -9,6 +9,7 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import Applayout from "./ui/Applayout";
 import SignUp from "./authetication/SignUp";
 import AuthSuccess from "./authetication/AuthSuccess";
+import FurtherUserDetails from "./authetication/FurtherUserDetails";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ function App() {
             >
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
+              <Route path="details" element={<FurtherUserDetails />} />
             </Route>
           </Routes>
         </BrowserRouter>
