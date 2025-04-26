@@ -1,4 +1,11 @@
-import { createContext, FormEvent, RefObject, useContext, useRef } from "react";
+import {
+  createContext,
+  FormEvent,
+  RefObject,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
@@ -112,7 +119,6 @@ function LoginForm() {
 function SignupForm() {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { signup, isPending } = useSignUp();
-  const { setMove } = useStates();
 
   const { errors } = formState;
 
@@ -231,9 +237,9 @@ const inactiveImg = {
 
 // Component to collect further details about new user
 function UserDetails() {
-  const { register, formState, getFieldState, handleSubmit } = useForm();
+  const [avatar, setAvatar] = useState("");
+  const { register, formState, getFieldState, handleSubmit, reset } = useForm();
   const { updateUser, isUpdating } = useUpdateUser();
-  const { setMove } = useStates();
 
   const { errors } = formState;
   const { isDirty } = getFieldState("fullName", formState);
@@ -242,11 +248,12 @@ function UserDetails() {
   function handleFullName({ fullName }: FieldValues) {
     if (!fullName) return;
     updateUser(
-      { fullName },
+      { fullName, avatar },
       {
         onSuccess: () => {
-          setMove(0);
           navigate("/dashboard");
+          setAvatar("");
+          reset();
         },
       }
     );
@@ -269,7 +276,11 @@ function UserDetails() {
               <AuthParagraph text={errors?.fullName?.message} />
             )}
             <label htmlFor="avatarFile">Upload avatar</label>
-            <FileInput id="avatarFile" />
+            <FileInput
+              id="avatarFile"
+              accept="image/*"
+              onChange={(e) => setAvatar(e.target.files[0])}
+            />
           </StyledLogin>
         </div>
 

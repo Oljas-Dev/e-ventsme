@@ -10,6 +10,7 @@ import features from "../../public/features.png";
 // import { Button } from "./Button";
 // import { btnAppear } from "../keyframes/keyframes";
 import Stripes from "./Stripes";
+import { useUser } from "../authetication/useUser";
 
 const IconsContainer = styled(FlexCol)`
   gap: 2rem;
@@ -60,17 +61,6 @@ const StyledSettings = styled(FlexBtw)`
 // `;
 
 // Images objects to pass the styles to the UseImages component
-const userAvatar = {
-  image: Avatar,
-  widthHeight: { width: "8rem", height: "8rem" },
-  padding: "0",
-  borderRadius: "50%",
-  border: "2px solid var(--color-footer)",
-  flexShrink: "0",
-  content: "avatar",
-  afterPadding: "2.5rem",
-  afterLeft: "1rem",
-};
 
 const styledExpandIcon = {
   image: expandIcon,
@@ -94,11 +84,25 @@ const StripesStyling = [
 ];
 
 export default function Settings() {
+  const { user } = useUser();
+
+  const { fullName, avatar } = user?.user_metadata; // Name and avatar fetched from supabase
+
+  const userAvatar = {
+    image: avatar || Avatar,
+    widthHeight: { width: "8rem", height: "8rem" },
+    padding: "0",
+    borderRadius: "50%",
+    border: "2px solid var(--color-footer)",
+    flexShrink: "0",
+    content: "avatar",
+    afterPadding: "2.5rem",
+    afterLeft: "1rem",
+  };
+
   // const [status, setStatus] = useState("what's on your mind...");
   // const [showStatus, setShowStatus] = useState(false);
   // const [showButton, setShowButton] = useState("");
-
-  const userName = "Oljas"; // Replace with actual user name
 
   // const statusInput = useRef<HTMLInputElement>(null);
   // const inputValue = statusInput.current?.value;
@@ -122,7 +126,7 @@ export default function Settings() {
         <UseImages styles={userAvatar} />
         <Stripes arr={StripesStyling} />
 
-        <p>Welcome back {userName}</p>
+        <p>Welcome back {fullName}</p>
         <IconsContainer>
           <UseImages styles={styledExpandIcon} />
           <UseImages styles={styledFeatures} />
