@@ -237,7 +237,9 @@ const inactiveImg = {
 
 // Component to collect further details about new user
 function UserDetails() {
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(
+    "https://rwceeeycfirwuhnqxaot.supabase.co/storage/v1/object/public/avatar//userAvatar.png"
+  );
   const { register, formState, getFieldState, handleSubmit, reset } = useForm();
   const { updateUser, isUpdating } = useUpdateUser();
 
@@ -255,8 +257,21 @@ function UserDetails() {
           setAvatar("");
           reset();
         },
+        onError: (error) => {
+          toast.error(`Failled to update user: ${error.message}`);
+        },
       }
     );
+  }
+
+  function handleAvatarUpload(file: File | undefined) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setAvatar(reader.result as string); // Convert to base64
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   }
 
   return (
@@ -269,7 +284,17 @@ function UserDetails() {
             <Input
               type="text"
               placeholder="full name"
-              {...register("fullName", { required: "This field is required" })}
+              {...register("fullName", {
+                required: "This field is required",
+                minLength: {
+                  value: 3,
+                  message: "Full name must be at least 3 characters long",
+                },
+                pattern: {
+                  value: /^[a-zA-Z\s]+$/,
+                  message: "Full name can only contain letters and spaces",
+                },
+              })}
               disabled={isUpdating}
             />
             {errors?.fullName?.message && (
@@ -279,7 +304,11 @@ function UserDetails() {
             <FileInput
               id="avatarFile"
               accept="image/*"
-              onChange={(e) => setAvatar(e.target.files[0])}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                handleAvatarUpload(file);
+              }}
+              aria-label="Upload your avatar"
             />
           </StyledLogin>
         </div>

@@ -32,7 +32,12 @@ function App() {
             >
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="details" element={<FurtherUserDetails />} />
+              <Route path="details/fullname" element={<FurtherUserDetails />} />
+              <Route
+                path="details/birthdate"
+                element={<FurtherUserDetails />}
+              />
+              <Route path="details/address" element={<FurtherUserDetails />} />
             </Route>
           </Routes>
         </BrowserRouter>

@@ -24,7 +24,7 @@ export default function Dashboard() {
   const fullName = user?.user_metadata.fullName;
 
   useEffect(() => {
-    if (fullName === "") navigate("/details");
+    if (fullName === "") navigate("/details/fullname");
   }, [navigate, fullName]);
 
   return (

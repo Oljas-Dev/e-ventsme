@@ -86,7 +86,11 @@ const StripesStyling = [
 export default function Settings() {
   const { user } = useUser();
 
-  const { fullName, avatar } = user?.user_metadata; // Name and avatar fetched from supabase
+  if (!user || !user.user_metadata) {
+    return <p>Loading user data...</p>;
+  }
+
+  const { fullName, avatar } = user.user_metadata; // Name and avatar fetched from supabase
 
   const userAvatar = {
     image: avatar || Avatar,

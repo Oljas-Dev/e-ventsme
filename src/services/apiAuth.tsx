@@ -3,7 +3,6 @@ import supabase from "./supabase";
 
 interface updateUserProps {
   avatar?: string;
-  gender?: string;
   fullName?: string;
   birthDate?: string;
   address?: string;
@@ -23,7 +22,6 @@ export async function signup({
       data: {
         avatar: "",
         fullName: "",
-        gender: "",
         birthDate: "",
         address: "",
       },
@@ -38,18 +36,14 @@ export async function signup({
 export async function updateCurrentUser({
   avatar,
   fullName,
-  gender = "",
   birthDate = "",
   address = "",
 }: updateUserProps) {
   // 1. Update fullName
-  let updateData:
-    | { data: { fullName: string } }
-    | { data: { gender: string; birthDate: string } }
-    | { data: { address: string } };
+  let updateData: { data: { [key: string]: string } } = { data: {} };
 
   if (fullName) updateData = { data: { fullName } };
-  if (gender && birthDate) updateData = { data: { gender, birthDate } };
+  if (birthDate) updateData = { data: { birthDate } };
   if (address) updateData = { data: { address } };
 
   const { data, error } = await supabase.auth.updateUser(updateData);
