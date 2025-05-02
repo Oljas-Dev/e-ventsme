@@ -10,6 +10,7 @@ interface WrapperProps {
   $height?: string;
   $color?: string;
   $borderColor?: string;
+  $anim?: string;
 }
 
 const Wrapper = styled.div<WrapperProps>`
@@ -21,7 +22,7 @@ const Wrapper = styled.div<WrapperProps>`
   flex-direction: column;
   gap: ${(props) => props.$gap || "3rem"};
   background-color: ${(props) => props.$backgroundColor || "var(--color-user)"};
-  animation: ${appear} 1s var(--spring-easing);
+  animation: ${(props) => props.$anim || appear} 1s var(--spring-easing);
 
   height: ${(props) => props.$height};
   padding: ${(props) => props.$padding || "4rem"};

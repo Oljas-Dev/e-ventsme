@@ -31,6 +31,10 @@ interface LinkProps {
   $color?: string;
 }
 
+interface FlexProps {
+  $gap?: string;
+}
+
 const ArrowLeft = styled.span<ArrowLeftProps>`
   font-size: 1.2rem;
   position: relative;
@@ -96,6 +100,12 @@ const Grid = styled.div<GridProps>`
   align-items: center;
 `;
 
+const Flex = styled.div<FlexProps>`
+  display: flex;
+  gap: ${(props) => props.$gap || "1rem"};
+  align-items: center;
+`;
+
 const FlexCol = styled.div`
   display: flex;
   flex-direction: column;
@@ -121,6 +131,7 @@ export {
   StyledLogin,
   ArrowLeft,
   Input,
+  Flex,
   FlexCol,
   FlexBtw,
   Grid,

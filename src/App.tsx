@@ -9,7 +9,7 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import Applayout from "./ui/Applayout";
 import SignUp from "./authetication/SignUp";
 import AuthSuccess from "./authetication/AuthSuccess";
-import FurtherUserDetails from "./authetication/FurtherUserDetails";
+import { Details } from "./authetication/UserDetails";
 
 const queryClient = new QueryClient();
 
@@ -32,12 +32,30 @@ function App() {
             >
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="details/fullname" element={<FurtherUserDetails />} />
+              <Route
+                path="details/fullname"
+                element={
+                  <Details>
+                    <Details.AvatarAndUserName />
+                  </Details>
+                }
+              />
               <Route
                 path="details/birthdate"
-                element={<FurtherUserDetails />}
+                element={
+                  <Details>
+                    <Details.BirthDate />
+                  </Details>
+                }
               />
-              <Route path="details/address" element={<FurtherUserDetails />} />
+              <Route
+                path="details/address"
+                element={
+                  <Details>
+                    <Details.Address />
+                  </Details>
+                }
+              />
             </Route>
           </Routes>
         </BrowserRouter>

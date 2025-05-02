@@ -1,11 +1,4 @@
-import {
-  createContext,
-  FormEvent,
-  RefObject,
-  useContext,
-  useRef,
-  useState,
-} from "react";
+import { createContext, FormEvent, RefObject, useContext, useRef } from "react";
 import styled from "styled-components";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
@@ -23,15 +16,11 @@ import {
 } from "../reusableComponents/StyledReusable";
 import useStates from "../context/useStates";
 import Wrapper from "../ui/Wrapper";
-import { Button, MainBtn } from "../ui/Button";
+import { MainBtn } from "../ui/Button";
 import googleImg from "../../public/devicon_google.png";
 import UseImages from "../ui/UseImages";
 import AuthParagraph from "../ui/AuthParagraph";
 import useSignUp from "./useSignUp";
-import { useUpdateUser } from "./useUpdateUser";
-import FileInput from "../ui/FileInput";
-import activeImage from "../../public/active_arr.png";
-import inactiveImage from "../../public/inactive_arr.png";
 
 interface AuthFormProps {
   handleLogin: (e: FormEvent<HTMLFormElement>) => void;
@@ -215,119 +204,6 @@ and follow further instructions."
   );
 }
 
-// UserDetails component's styles
-const StyledDetails = styled(FlexCol)`
-  gap: 10rem;
-
-  text-align: center;
-  min-width: 40rem;
-`;
-
-// Objects with styles for btn image
-const activeImg = {
-  image: activeImage,
-  widthHeight: { width: "4rem", height: "2rem" },
-  showBubble: "none",
-};
-const inactiveImg = {
-  image: inactiveImage,
-  widthHeight: { width: "4rem", height: "2rem" },
-  showBubble: "none",
-};
-
-// Component to collect further details about new user
-function UserDetails() {
-  const [avatar, setAvatar] = useState(
-    "https://rwceeeycfirwuhnqxaot.supabase.co/storage/v1/object/public/avatar//userAvatar.png"
-  );
-  const { register, formState, getFieldState, handleSubmit, reset } = useForm();
-  const { updateUser, isUpdating } = useUpdateUser();
-
-  const { errors } = formState;
-  const { isDirty } = getFieldState("fullName", formState);
-  const navigate = useNavigate();
-
-  function handleFullName({ fullName }: FieldValues) {
-    if (!fullName) return;
-    updateUser(
-      { fullName, avatar },
-      {
-        onSuccess: () => {
-          navigate("/dashboard");
-          setAvatar("");
-          reset();
-        },
-        onError: (error) => {
-          toast.error(`Failled to update user: ${error.message}`);
-        },
-      }
-    );
-  }
-
-  function handleAvatarUpload(file: File | undefined) {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setAvatar(reader.result as string); // Convert to base64
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  }
-
-  return (
-    <StyledForm onSubmit={handleSubmit(handleFullName)}>
-      <StyledDetails>
-        <div>
-          <h2>Almost there...</h2>
-          <StyledLogin>
-            <label>Your full name</label>
-            <Input
-              type="text"
-              placeholder="full name"
-              {...register("fullName", {
-                required: "This field is required",
-                minLength: {
-                  value: 3,
-                  message: "Full name must be at least 3 characters long",
-                },
-                pattern: {
-                  value: /^[a-zA-Z\s]+$/,
-                  message: "Full name can only contain letters and spaces",
-                },
-              })}
-              disabled={isUpdating}
-            />
-            {errors?.fullName?.message && (
-              <AuthParagraph text={errors?.fullName?.message} />
-            )}
-            <label htmlFor="avatarFile">Upload avatar</label>
-            <FileInput
-              id="avatarFile"
-              accept="image/*"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                handleAvatarUpload(file);
-              }}
-              aria-label="Upload your avatar"
-            />
-          </StyledLogin>
-        </div>
-
-        <Button
-          $padding="0"
-          $backgroundColor="transparent"
-          $borderColor="transparent"
-          $shadow="none"
-          $align="flex-end"
-        >
-          <UseImages styles={isDirty ? activeImg : inactiveImg} />
-        </Button>
-      </StyledDetails>
-    </StyledForm>
-  );
-}
-
 AuthForm.Login = LoginForm;
 AuthForm.SignUp = SignupForm;
 AuthForm.AuthFinish = AuthFinish;
-AuthForm.UserDetails = UserDetails;

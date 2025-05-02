@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 import supabase from "./supabase";
 
 interface updateUserProps {
-  avatar?: string;
+  avatar?: File | undefined;
   fullName?: string;
   birthDate?: string;
   address?: string;
