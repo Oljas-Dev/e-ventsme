@@ -45,7 +45,8 @@ const ImageContainer = styled.span<ImageContainerProps>`
   display: block;
   font-size: 1.2rem;
   background: url(${(props) => props.$image}) no-repeat 0 0;
-  background-size: ${(props) => props.$width} ${(props) => props.$height};
+  background-size: contain;
+  background-position: center;
   width: ${(props) => props.$width};
   height: ${(props) => props.$height};
   cursor: pointer;

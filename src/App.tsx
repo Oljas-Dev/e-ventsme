@@ -10,8 +10,15 @@ import Applayout from "./ui/Applayout";
 import SignUp from "./authetication/SignUp";
 import AuthSuccess from "./authetication/AuthSuccess";
 import { Details } from "./authetication/UserDetails";
+import { DashboardProvider } from "./context/dashboardContext";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1,
+    },
+  },
+});
 
 function App() {
   return (
@@ -31,7 +38,14 @@ function App() {
               }
             >
               <Route index element={<Navigate replace to="dashboard" />} />
-              <Route path="dashboard" element={<Dashboard />} />
+              <Route
+                path="dashboard"
+                element={
+                  <DashboardProvider>
+                    <Dashboard />
+                  </DashboardProvider>
+                }
+              />
               <Route
                 path="details/fullname"
                 element={

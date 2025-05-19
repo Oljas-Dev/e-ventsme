@@ -33,6 +33,7 @@ const Wrapper = styled.div<WrapperProps>`
     ${(props) => props.$borderColor || "var(--color-user-stroke)"};
   box-shadow: var(--shadow);
   position: relative;
+  transition: all 0.5s var(--spring-easing);
 `;
 
 export default Wrapper;
